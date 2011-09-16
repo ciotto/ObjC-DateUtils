@@ -1,25 +1,21 @@
-Overview
---------
+##Overview
 
 DateUtils is a collection of date related methods to help the development ofiOS or Mac apps. 
 The goal of the project is to provide shortcuts to the creation and manipulation of date objects.
 
-Usage
------
+##Usage
 
 Just add DateUtils.h and DateUtils.m files to your project.
 
-Examples
---------
- 
+##Examples
+
 Here is a small example on how to create a date object from numbers without to much code:
 
     NSDate *birthDate = [DateUtils dateWithYear:1987 month:3 day:10 hour:8 minute:36];
 
 Please refer to DateUtilsTest.m for some examples.
 
-Notes
------
+#Notes
 
 DateUtils was developed by [@rigoneri] as part of [myHomework app].
 
