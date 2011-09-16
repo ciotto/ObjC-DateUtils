@@ -1,13 +1,13 @@
-##Overview
+#Overview
 
 DateUtils is a collection of date related methods to help the development ofiOS or Mac apps. 
 The goal of the project is to provide shortcuts to the creation and manipulation of date objects.
 
-##Usage
+#Usage
 
 Just add DateUtils.h and DateUtils.m files to your project.
 
-##Examples
+#Examples
 
 Here is a small example on how to create a date object from numbers without to much code:
 
