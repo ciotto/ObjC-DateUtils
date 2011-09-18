@@ -15,7 +15,7 @@ Here is a small example on how to create a date object from numbers without to m
 
 Please refer to DateUtilsTest.m for some examples.
 
-#Notes
+#Credit
 
 DateUtils was developed by [@rigoneri] as part of [myHomework app].
 
