@@ -50,11 +50,21 @@
 }
 
 //
+//  Returns a date object from year, month, day, hour, minute and second int values.
+//
++ (NSDate *)dateWithYear:(int)yyyy month:(int)mm day:(int)dd hour:(int)hh minute:(int)mi second:(int)ss {
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateFormat:@"yyyy,MM,dd,HH,mm,ss"];
+	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+	return [dateFormatter dateFromString:[NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d", yyyy, mm, dd, hh, mi, ss]];
+}
+
+//
 //	Returns a date object from a ISO 8601 date string.
 //
 + (NSDate *)dateFromTZformat:(NSString *)date {
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-	[dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm'Z'"];
+	[dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
 //	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
 	return [dateFormatter dateFromString:date];
 }
@@ -64,7 +74,7 @@
 //
 + (NSString *)dateTZformat:(NSDate *)date {
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-	[dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm'Z'"];
+	[dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
 //	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
 	return [dateFormatter stringFromDate:date];
 }
@@ -75,9 +85,11 @@
 //
 + (NSDate *)dateFromTimeFormat:(NSString *)dateString {
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-	[dateFormatter setDateFormat:@"HH:mm"];
+	[dateFormatter setDateFormat:@"HH:mm:ss"];
 //	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
     NSDate *date=[dateFormatter dateFromString:dateString];
+    
+    if(!date) return nil;
     
     NSCalendar *calendar=[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
@@ -91,7 +103,7 @@
 //
 + (NSString *)timeStringFromDate:(NSDate *)date {
 	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-	[dateFormatter setDateFormat:@"HH:mm"];
+	[dateFormatter setDateFormat:@"HH:mm:ss"];
 //	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
 	return [dateFormatter stringFromDate:date];
 }
@@ -102,7 +114,7 @@
 + (NSDateComponents *)componentsFromDate:(NSDate *)date {
 	NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
 //	[gregorian setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-	return [gregorian components:(NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:date];
+	return [gregorian components:(NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:date];
 }
 
 //
@@ -130,7 +142,7 @@
 //
 + (int)dateCompareValue:(NSDate *)date {
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateFormat:@"yyyyMMdd"];
+	[dateFormatter setDateFormat:@"yyyyMMddss"];
 	NSString *dateStr = [dateFormatter stringFromDate:date];
 	[dateFormatter release];
 	return [dateStr intValue];

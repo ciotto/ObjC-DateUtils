@@ -30,6 +30,7 @@
 
 + (NSDate *)dateWithYear:(int)yyyy month:(int)mm day:(int)dd;
 + (NSDate *)dateWithYear:(int)yyyy month:(int)mm day:(int)dd hour:(int)hh minute:(int)mi;
++ (NSDate *)dateWithYear:(int)yyyy month:(int)mm day:(int)dd hour:(int)hh minute:(int)mi second:(int)ss;
 + (NSDate *)dateFromTZformat:(NSString *)date;
 + (NSString *)dateTZformat:(NSDate *)date;
 + (NSDate *)dateFromTimeFormat:(NSString *)date;
