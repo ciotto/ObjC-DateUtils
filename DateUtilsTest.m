@@ -9,7 +9,7 @@ int main (int argc, const char * argv[]) {
 	
 	testDate = [DateUtils dateWithYear:1987 month:3 day:10];
 	testDateStr = [DateUtils dateTZformat:testDate];
-	assert([testDateStr isEqualToString:@"1987-03-10T18:00Z"]);
+	assert([testDateStr isEqualToString:@"1987-03-10T00:00Z"]);
 
 	testDate = [DateUtils dateWithYear:1987 month:3 day:10 hour:8 minute:36];
 	testDateStr = [DateUtils dateTZformat:testDate];
@@ -27,6 +27,10 @@ int main (int argc, const char * argv[]) {
 	
 	int monthDaysCount = [DateUtils numOfDaysOnMonth:testDate];
 	assert(monthDaysCount == 31);
+    int bissextileDaysCount = [DateUtils numOfDaysOnMonth:[DateUtils dateWithYear:2004 month:2 day:10]];
+	assert(bissextileDaysCount == 29);
+    int notBissextileDaysCount = [DateUtils numOfDaysOnMonth:[DateUtils dateWithYear:2005 month:2 day:10]];
+	assert(notBissextileDaysCount == 28);
 	
 	testDate = [DateUtils roundDate:testDate withInterval:5];
 	testDateStr = [DateUtils dateTZformat:testDate];
