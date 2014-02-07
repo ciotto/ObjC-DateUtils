@@ -1,9 +1,9 @@
 //
-//  DateUtils.h
-//  Created by Rodrigo Neri on 11/26/10.
-//  https://github.com/rigoneri/ObjC-DateUtils
-//  
-//  Copyright (c) 2011, Rodrigo Neri <@rigoneri>
+//  NSDate+Utils.h
+//  Created by Christian Bianciotto on 06/02/14.
+//  https://github.com/ciotto/ObjC-DateUtils
+//
+//  Copyright (c) 2014, Christian Bianciotto <@ciotto>
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -11,10 +11,10 @@
 //  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 //  copies of the Software, and to permit persons to whom the Software is
 //  furnished to do so, subject to the following conditions:
-//  
+//
 //  The above copyright notice and this permission notice shall be included in
 //  all copies or substantial portions of the Software.
-//  
+//
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 //  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 //  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,20 +26,18 @@
 
 #import <Foundation/Foundation.h>
 
-#import "NSDate+Utils.h"
+#import "NSString+DateUtils.h"
 
-@interface DateUtils : NSObject
+@interface NSDate (Utils)
 
-+ (NSDate *)dateWithYear:(int)yyyy month:(int)mm day:(int)dd;
-+ (NSDate *)dateWithYear:(int)yyyy month:(int)mm day:(int)dd hour:(int)hh minute:(int)mi;
-+ (NSDate *)dateWithYear:(int)yyyy month:(int)mm day:(int)dd hour:(int)hh minute:(int)mi second:(int)ss;
-+ (NSDate *)dateFromTZformat:(NSString *)date;
-+ (NSString *)dateTZformat:(NSDate *)date;
-+ (NSDate *)dateFromTimeFormat:(NSString *)date;
-+ (NSString *)timeStringFromDate:(NSDate *)date;
-+ (NSDateComponents *)componentsFromDate:(NSDate *)date;
-+ (int)numOfDaysOnMonth:(NSDate *)date;
-+ (int)dateCompareValue:(NSDate *)date;
-+ (NSDate*)roundDate:(NSDate*)dateToRound withInterval:(int)minuteInterval;
+- (NSDate *)dateWithYear:(int)yyyy month:(int)mm day:(int)dd;
+- (NSDate *)dateWithYear:(int)yyyy month:(int)mm day:(int)dd hour:(int)hh minute:(int)mi;
+- (NSDate *)dateWithYear:(int)yyyy month:(int)mm day:(int)dd hour:(int)hh minute:(int)mi second:(int)ss;
+- (NSString *)dateTZformat;
+- (NSString *)timeString;
+- (NSDateComponents *)components;
+- (int)numOfDaysOnMonth;
+- (int)dateCompareValue;
+- (NSDate*)roundedDateWithInterval:(int)minuteInterval;
 
 @end
