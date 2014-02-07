@@ -1,5 +1,5 @@
 //
-//  NSDate+Utils.h
+//  NSDate-Utils.h
 //  Created by Christian Bianciotto on 06/02/14.
 //  https://github.com/ciotto/ObjC-DateUtils
 //
@@ -39,5 +39,23 @@
 - (int)numOfDaysOnMonth;
 - (int)dateCompareValue;
 - (NSDate*)roundedDateWithInterval:(int)minuteInterval;
+
+@end
+
+@interface NSDate (UtilsComparison)
+
+- (BOOL)isBetweenDate:(NSDate *)date1 :(NSDate *)date2;
+
+@end
+
+@interface NSDate (UtilsOperation)
+
+- (NSDate *)dateByAddingYear:(int)year;
+- (NSDate *)dateByAddingMonth:(int)month;
+- (NSDate *)dateByAddingDay:(int)day;
+- (NSDate *)dateByAddingHour:(int)hour;
+- (NSDate *)dateByAddingMinute:(int)minute;
+- (NSDate *)dateByAddingSecond:(int)second;
+- (NSDate *)dateByAddingDate:(NSDate *)date;
 
 @end

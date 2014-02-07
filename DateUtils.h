@@ -43,3 +43,21 @@
 + (NSDate*)roundDate:(NSDate*)dateToRound withInterval:(int)minuteInterval;
 
 @end
+
+@interface DateUtils (comparison)
+
++ (BOOL)date:(NSDate *)date1 isBetweenDate:(NSDate *)date2 :(NSDate *)date3;
+
+@end
+
+@interface DateUtils (operation)
+
++ (NSDate *)dateByAddingYear:(int)year toDate:(NSDate *)date;
++ (NSDate *)dateByAddingMonth:(int)month toDate:(NSDate *)date;
++ (NSDate *)dateByAddingDay:(int)day toDate:(NSDate *)date;
++ (NSDate *)dateByAddingHour:(int)hour toDate:(NSDate *)date;
++ (NSDate *)dateByAddingMinute:(int)minute toDate:(NSDate *)date;
++ (NSDate *)dateByAddingSecond:(int)second toDate:(NSDate *)date;
++ (NSDate *)dateByAddingDate:(NSDate *)date1 toDate:(NSDate *)date2;
+
+@end

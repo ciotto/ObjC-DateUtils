@@ -66,4 +66,52 @@
     return [DateUtils roundDate:self withInterval:minuteInterval];
 }
 
+
+#pragma mark Comparison
+
+- (BOOL)isBetweenDate:(NSDate *)date1 :(NSDate *)date2 {
+    return [DateUtils date:self isBetweenDate:date1 :date2];
+}
+
+
+#pragma mark Operation
+
+- (NSDate *)dateByAddingYear:(int)year {
+    return [DateUtils dateByAddingYear:year toDate:self];
+}
+
+- (NSDate *)dateByAddingMonth:(int)month {
+    return [DateUtils dateByAddingMonth:month toDate:self];
+}
+
+- (NSDate *)dateByAddingDay:(int)day {
+    return [DateUtils dateByAddingDay:day toDate:self];
+}
+
+- (NSDate *)dateByAddingHour:(int)hour {
+    return [DateUtils dateByAddingHour:hour toDate:self];
+}
+
+- (NSDate *)dateByAddingMinute:(int)minute {
+    return [DateUtils dateByAddingMinute:minute toDate:self];
+}
+
+- (NSDate *)dateByAddingSecond:(int)second {
+    return [DateUtils dateByAddingSecond:second toDate:self];
+}
+
+- (NSDate *)dateByAddingDate:(NSDate *)date {
+    return [DateUtils dateByAddingDate:date toDate:self];
+}
+
 @end
+
+
+
+
+
+
+
+
+
+
