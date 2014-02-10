@@ -32,11 +32,10 @@
 //	Returns a date object from year, month and day int values.
 //
 + (NSDate *)dateWithYear:(int)yyyy month:(int)mm day:(int)dd {
-	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"yyyy,MM,dd,HH,mm,ss"];
-	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] autorelease];
-	[dateFormatter setLocale:locale];
-	return [dateFormatter dateFromString:[NSString stringWithFormat:@"%d,%d,%d,12,00,00", yyyy, mm, dd]];
+//    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+	return [dateFormatter dateFromString:[NSString stringWithFormat:@"%d,%d,%d,00,00,00", yyyy, mm, dd]];
 }
 
 
@@ -44,59 +43,68 @@
 //  Returns a date object from year, month, day, hour and minute int values.
 //
 + (NSDate *)dateWithYear:(int)yyyy month:(int)mm day:(int)dd hour:(int)hh minute:(int)mi {
-	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateFormat:@"yyyy,MM,dd,HH,mm,ss"];
-	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] autorelease];
-	[dateFormatter setLocale:locale];
+//	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
 	return [dateFormatter dateFromString:[NSString stringWithFormat:@"%d,%d,%d,%d,%d,00", yyyy, mm, dd, hh, mi]];
+}
+
+//
+//  Returns a date object from year, month, day, hour, minute and second int values.
+//
++ (NSDate *)dateWithYear:(int)yyyy month:(int)mm day:(int)dd hour:(int)hh minute:(int)mi second:(int)ss {
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"yyyy,MM,dd,HH,mm,ss"];
+//	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+	return [dateFormatter dateFromString:[NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d", yyyy, mm, dd, hh, mi, ss]];
 }
 
 //
 //	Returns a date object from a ISO 8601 date string.
 //
 + (NSDate *)dateFromTZformat:(NSString *)date {
-	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-	[dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm'Z'"];
-	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] autorelease];
-	[dateFormatter setLocale:locale];
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+//	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
 	return [dateFormatter dateFromString:date];
 }
 
 //
-//  Returns a ISO 8601 date string from a date object. 
+//  Returns a ISO 8601 date string from a date object.
 //
 + (NSString *)dateTZformat:(NSDate *)date {
-	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-	[dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm'Z'"];
-	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] autorelease];
-	[dateFormatter setLocale:locale];
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+//	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
 	return [dateFormatter stringFromDate:date];
 }
 
 //
-//	Returns a date object from a time string.
+//	Returns a date object from a time string in format 'HH:mm'.
+//  Fix iOS 6+ http://stackoverflow.com/questions/12449553/ios6-nsdateformatter-default-year
 //
-+ (NSDate *)dateFromTimeFormat:(NSString *)date {
-	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-	[dateFormatter setDateFormat:@"HH:mm"];
-	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] autorelease];
-	[dateFormatter setLocale:locale];
-	return [dateFormatter dateFromString:date];
++ (NSDate *)dateFromTimeFormat:(NSString *)dateString {
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"HH:mm:ss"];
+//	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    NSDate *date=[dateFormatter dateFromString:dateString];
+    
+    if(!date) return nil;
+    
+    NSCalendar *calendar=[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    NSDateComponents *components=[calendar components:NSHourCalendarUnit|NSMinuteCalendarUnit|NSSecondCalendarUnit fromDate:date];
+    
+    return [calendar dateByAddingComponents:components toDate:[NSDate dateWithTimeIntervalSince1970:0] options:0];
 }
 
 //
-//	Returns a time string from a date object.
+//	Returns a time string from a date object in format 'HH:mm'.
 //
 + (NSString *)timeStringFromDate:(NSDate *)date {
-	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-	[dateFormatter setDateFormat:@"HH:mm"];
-	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-	NSLocale *locale = [[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"] autorelease];
-	[dateFormatter setLocale:locale];
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"HH:mm:ss"];
+//	[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
 	return [dateFormatter stringFromDate:date];
 }
 
@@ -104,9 +112,9 @@
 //	Returns a NSDateComponents object from a date.
 //
 + (NSDateComponents *)componentsFromDate:(NSDate *)date {
-	NSCalendar *gregorian = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
-	[gregorian setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-	return [gregorian components:(NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:date];
+	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//	[gregorian setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+	return [gregorian components:(NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:date];
 }
 
 //
@@ -134,9 +142,9 @@
 //
 + (int)dateCompareValue:(NSDate *)date {
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateFormat:@"yyyyMMdd"];
+	[dateFormatter setDateFormat:@"yyyyMMddss"];
 	NSString *dateStr = [dateFormatter stringFromDate:date];
-	[dateFormatter release];
+
 	return [dateStr intValue];
 }
 
@@ -147,12 +155,121 @@
 	NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:dateToRound];
 	NSInteger remainder = [dateComponents minute] % minuteInterval;
 	
-	if (remainder >= minuteInterval/2) 
+	if (remainder >= minuteInterval/2)
         dateToRound = [dateToRound dateByAddingTimeInterval:((minuteInterval - remainder) * 60)];
 	else if (remainder > 0 && remainder < minuteInterval/2)
         dateToRound = [dateToRound dateByAddingTimeInterval:(remainder * -60)];
 	
-	return [dateToRound dateByAddingTimeInterval:(-1 * [dateComponents second])];    
+	return [dateToRound dateByAddingTimeInterval:(-1 * [dateComponents second])];
+}
+
+//
+//	Return YES if date1 is between date2 and date3.
+//
++ (BOOL)date:(NSDate *)date1 isBetweenDate:(NSDate *)date2 :(NSDate *)date3 {
+    return [date2 compare:date1]==NSOrderedAscending && [date3 compare:date1]==NSOrderedDescending;
+}
+
+//
+//	Return a date with year added.
+//
++ (NSDate *)dateByAddingYear:(int)year toDate:(NSDate *)date {
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.year=year;
+    
+    NSCalendar *calendar=[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    return [calendar dateByAddingComponents:components toDate:date options:0];
+}
+//
+//	Return a date with month added.
+//
++ (NSDate *)dateByAddingMonth:(int)month toDate:(NSDate *)date {
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.month=month;
+    
+    NSCalendar *calendar=[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    return [calendar dateByAddingComponents:components toDate:date options:0];
+}
+//
+//	Return a date with day added.
+//
++ (NSDate *)dateByAddingDay:(int)day toDate:(NSDate *)date {
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.day=day;
+    
+    NSCalendar *calendar=[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    return [calendar dateByAddingComponents:components toDate:date options:0];
+}
+//
+//	Return a date with hours added.
+//
++ (NSDate *)dateByAddingHour:(int)hour toDate:(NSDate *)date {
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.hour=hour;
+    
+    NSCalendar *calendar=[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    return [calendar dateByAddingComponents:components toDate:date options:0];
+}
+//
+//	Return a date with minute added.
+//
++ (NSDate *)dateByAddingMinute:(int)minute toDate:(NSDate *)date {
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.minute=minute;
+    
+    NSCalendar *calendar=[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    return [calendar dateByAddingComponents:components toDate:date options:0];
+}
+//
+//	Return a date with second added.
+//
++ (NSDate *)dateByAddingSecond:(int)second toDate:(NSDate *)date {
+    NSDateComponents *components = [[NSDateComponents alloc] init];
+    components.second=second;
+    
+    NSCalendar *calendar=[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    return [calendar dateByAddingComponents:components toDate:date options:0];
+}
+//
+//	Return a date with date added.
+//
++ (NSDate *)dateByAddingDate:(NSDate *)date1 toDate:(NSDate *)date2 {
+    NSDateComponents *components = [DateUtils componentsFromDate:date2];
+    
+    NSCalendar *calendar=[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//    [calendar setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    return [calendar dateByAddingComponents:components toDate:date1 options:0];
 }
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
