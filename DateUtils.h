@@ -42,13 +42,14 @@
 
 @end
 
-@interface DateUtils (comparison)
+@interface DateUtils (Comparison)
 
 + (BOOL)date:(NSDate *)date1 isBetweenDate:(NSDate *)date2 :(NSDate *)date3;
++ (BOOL)date:(NSDate *)date1 isBetweenDate:(NSDate *)date2 :(NSDate *)date3 includeExtremes:(BOOL)includeExtremes;
 
 @end
 
-@interface DateUtils (operation)
+@interface DateUtils (Operation)
 
 + (NSDate *)dateByAddingYear:(int)year toDate:(NSDate *)date;
 + (NSDate *)dateByAddingMonth:(int)month toDate:(NSDate *)date;
@@ -57,5 +58,24 @@
 + (NSDate *)dateByAddingMinute:(int)minute toDate:(NSDate *)date;
 + (NSDate *)dateByAddingSecond:(int)second toDate:(NSDate *)date;
 + (NSDate *)dateByAddingDate:(NSDate *)date1 toDate:(NSDate *)date2;
+
+@end
+
+@interface DateUtils (Holiday)
+
++ (BOOL)dateIsHoliday:(NSDate *)date;
++ (BOOL)dateIsHoliday:(NSDate *)date withLocale:(NSLocale *)locale;
+
+@end
+
+@interface DateUtils (DayOfWeek)
+
++ (BOOL)dateIsSunday:(NSDate *)date;
++ (BOOL)dateIsMonday:(NSDate *)date;
++ (BOOL)dateIsTuesday:(NSDate *)date;
++ (BOOL)dateIsWednesday:(NSDate *)date;
++ (BOOL)dateIsThurday:(NSDate *)date;
++ (BOOL)dateIsFriday:(NSDate *)date;
++ (BOOL)dateIsSaturday:(NSDate *)date;
 
 @end
