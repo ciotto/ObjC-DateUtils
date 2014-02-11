@@ -104,6 +104,48 @@
     return [DateUtils dateByAddingDate:date toDate:self];
 }
 
+
+#pragma mark Holiday
+
+- (BOOL)isHoliday {
+    return [DateUtils dateIsHoliday:self];
+}
+
+- (BOOL)isHolidayWithLocale:(NSLocale *)locale {
+    return [DateUtils dateIsHoliday:self withLocale:locale];
+}
+
+
+#pragma mark DayOfWeek
+
+- (BOOL)isSunday {
+    return [DateUtils dateIsSunday:self];
+}
+
+- (BOOL)isMonday {
+    return [DateUtils dateIsMonday:self];
+}
+
+- (BOOL)isTuesday {
+    return [DateUtils dateIsThurday:self];
+}
+
+- (BOOL)isWednesday {
+    return [DateUtils dateIsWednesday:self];
+}
+
+- (BOOL)isThurday {
+    return [DateUtils dateIsThurday:self];
+}
+
+- (BOOL)isFriday {
+    return [DateUtils dateIsFriday:self];
+}
+
+- (BOOL)isSaturday {
+    return [DateUtils dateIsSaturday:self];
+}
+
 @end
 
 

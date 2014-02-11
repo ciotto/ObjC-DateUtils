@@ -59,3 +59,23 @@
 - (NSDate *)dateByAddingDate:(NSDate *)date;
 
 @end
+
+@interface NSDate (Holiday)
+
+- (BOOL)isHoliday;
+- (BOOL)isHolidayWithLocale:(NSLocale *)locale;
+
+@end
+
+@interface NSDate (DayOfWeek)
+
+- (BOOL)isSunday;
+- (BOOL)isMonday;
+- (BOOL)isTuesday;
+- (BOOL)isWednesday;
+- (BOOL)isThurday;
+- (BOOL)isFriday;
+- (BOOL)isSaturday;
+
+@end
+

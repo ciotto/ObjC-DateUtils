@@ -82,13 +82,17 @@
 	XCTAssert([testDateStr isEqualToString:@"08:36:00"]);
     
     testDate = [DateUtils dateWithYear:1987 month:3 day:10];
-    testDate2 = [DateUtils dateWithYear:1987 month:3 day:9];
-    testDate3 = [DateUtils dateWithYear:1987 month:3 day:11];
+    testDate2 = [DateUtils dateWithYear:1987 month:3 day:10];
+    testDate3 = [DateUtils dateWithYear:1987 month:3 day:10];
 	XCTAssert([DateUtils date:testDate isBetweenDate:testDate2 :testDate3]);
     testDate = [DateUtils dateFromTimeFormat:@"08:36:01"];
     testDate2 = [DateUtils dateFromTimeFormat:@"08:36:00"];
     testDate3 = [DateUtils dateFromTimeFormat:@"08:36:02"];
 	XCTAssert([DateUtils date:testDate isBetweenDate:testDate2 :testDate3]);
+    testDate = [DateUtils dateWithYear:1987 month:3 day:10];
+    testDate2 = [DateUtils dateWithYear:1987 month:3 day:10];
+    testDate3 = [DateUtils dateWithYear:1987 month:3 day:11];
+	XCTAssert(![DateUtils date:testDate isBetweenDate:testDate2 :testDate3 includeExtremes:NO]);
     
     testDate = [DateUtils dateWithYear:1987 month:3 day:10 hour:8 minute:36 second:23];
     testDate = [DateUtils dateByAddingYear:2 toDate:testDate];
@@ -114,6 +118,55 @@
     testDate = [DateUtils dateByAddingSecond:61 toDate:testDate];
 	testDateStr = [DateUtils dateTZformat:testDate];
 	XCTAssert([testDateStr isEqualToString:@"1987-03-10T08:37:24Z"]);
+    
+    testDate = [DateUtils dateWithYear:2014 month:4 day:20 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsHoliday:testDate withLocale:[NSLocale localeWithLocaleIdentifier:@"IT_it"]]);
+    testDate = [DateUtils dateWithYear:2014 month:4 day:21 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsHoliday:testDate withLocale:[NSLocale localeWithLocaleIdentifier:@"IT_it"]]);
+    testDate = [DateUtils dateWithYear:2013 month:3 day:31 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsHoliday:testDate withLocale:[NSLocale localeWithLocaleIdentifier:@"IT_it"]]);
+    testDate = [DateUtils dateWithYear:2013 month:4 day:1 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsHoliday:testDate withLocale:[NSLocale localeWithLocaleIdentifier:@"IT_it"]]);
+    testDate = [DateUtils dateWithYear:2423 month:4 day:2 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsHoliday:testDate withLocale:[NSLocale localeWithLocaleIdentifier:@"IT_it"]]);
+    testDate = [DateUtils dateWithYear:2423 month:4 day:3 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsHoliday:testDate withLocale:[NSLocale localeWithLocaleIdentifier:@"IT_it"]]);
+    
+    testDate = [DateUtils dateWithYear:2014 month:1 day:1 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsHoliday:testDate withLocale:[NSLocale localeWithLocaleIdentifier:@"IT_it"]]);
+    testDate = [DateUtils dateWithYear:2014 month:1 day:6 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsHoliday:testDate withLocale:[NSLocale localeWithLocaleIdentifier:@"IT_it"]]);
+    testDate = [DateUtils dateWithYear:2014 month:4 day:25 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsHoliday:testDate withLocale:[NSLocale localeWithLocaleIdentifier:@"IT_it"]]);
+    testDate = [DateUtils dateWithYear:2014 month:5 day:1 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsHoliday:testDate withLocale:[NSLocale localeWithLocaleIdentifier:@"IT_it"]]);
+    testDate = [DateUtils dateWithYear:2014 month:6 day:2 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsHoliday:testDate withLocale:[NSLocale localeWithLocaleIdentifier:@"IT_it"]]);
+    testDate = [DateUtils dateWithYear:2014 month:8 day:15 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsHoliday:testDate withLocale:[NSLocale localeWithLocaleIdentifier:@"IT_it"]]);
+    testDate = [DateUtils dateWithYear:2014 month:11 day:1 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsHoliday:testDate withLocale:[NSLocale localeWithLocaleIdentifier:@"IT_it"]]);
+    testDate = [DateUtils dateWithYear:2014 month:12 day:8 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsHoliday:testDate withLocale:[NSLocale localeWithLocaleIdentifier:@"IT_it"]]);
+    testDate = [DateUtils dateWithYear:2014 month:12 day:25 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsHoliday:testDate withLocale:[NSLocale localeWithLocaleIdentifier:@"IT_it"]]);
+    testDate = [DateUtils dateWithYear:2014 month:12 day:26 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsHoliday:testDate withLocale:[NSLocale localeWithLocaleIdentifier:@"IT_it"]]);
+    
+    testDate = [DateUtils dateWithYear:2014 month:2 day:9 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsSunday:testDate]);
+    testDate = [DateUtils dateWithYear:2014 month:2 day:10 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsMonday:testDate]);
+    testDate = [DateUtils dateWithYear:2014 month:2 day:11 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsTuesday:testDate]);
+    testDate = [DateUtils dateWithYear:2014 month:2 day:12 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsWednesday:testDate]);
+    testDate = [DateUtils dateWithYear:2014 month:2 day:13 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsThurday:testDate]);
+    testDate = [DateUtils dateWithYear:2014 month:2 day:14 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsFriday:testDate]);
+    testDate = [DateUtils dateWithYear:2014 month:2 day:15 hour:8 minute:36 second:23];
+	XCTAssert([DateUtils dateIsSaturday:testDate]);
 }
 
 @end
