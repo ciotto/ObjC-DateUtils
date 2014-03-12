@@ -112,6 +112,8 @@
 //	Returns a NSDateComponents object from a date.
 //
 + (NSDateComponents *)componentsFromDate:(NSDate *)date {
+    if(!date) return nil;
+    
 	NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
 //	[gregorian setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
 	return [gregorian components:(NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:date];
@@ -353,31 +355,31 @@
 #pragma mark DayOfWeek
 
 + (BOOL)dateIsSunday:(NSDate *)date {
-    return [[[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] components:NSWeekdayCalendarUnit fromDate:date] weekday]==1;
+    return date && [[[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] components:NSWeekdayCalendarUnit fromDate:date] weekday]==1;
 }
 
 + (BOOL)dateIsMonday:(NSDate *)date {
-    return [[[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] components:NSWeekdayCalendarUnit fromDate:date] weekday]==2;
+    return date && [[[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] components:NSWeekdayCalendarUnit fromDate:date] weekday]==2;
 }
 
 + (BOOL)dateIsTuesday:(NSDate *)date {
-    return [[[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] components:NSWeekdayCalendarUnit fromDate:date] weekday]==3;
+    return date && [[[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] components:NSWeekdayCalendarUnit fromDate:date] weekday]==3;
 }
 
 + (BOOL)dateIsWednesday:(NSDate *)date {
-    return [[[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] components:NSWeekdayCalendarUnit fromDate:date] weekday]==4;
+    return date && [[[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] components:NSWeekdayCalendarUnit fromDate:date] weekday]==4;
 }
 
 + (BOOL)dateIsThurday:(NSDate *)date {
-    return [[[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] components:NSWeekdayCalendarUnit fromDate:date] weekday]==5;
+    return date && [[[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] components:NSWeekdayCalendarUnit fromDate:date] weekday]==5;
 }
 
 + (BOOL)dateIsFriday:(NSDate *)date {
-    return [[[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] components:NSWeekdayCalendarUnit fromDate:date] weekday]==6;
+    return date && [[[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] components:NSWeekdayCalendarUnit fromDate:date] weekday]==6;
 }
 
 + (BOOL)dateIsSaturday:(NSDate *)date {
-    return [[[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] components:NSWeekdayCalendarUnit fromDate:date] weekday]==7;
+    return date && [[[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] components:NSWeekdayCalendarUnit fromDate:date] weekday]==7;
 }
 
 @end
