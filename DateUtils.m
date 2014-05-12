@@ -327,7 +327,7 @@
             m=25;
             n=1;
         }else{
-            NSLog(@"Easter date not supported in %d",components.year);
+            NSLog(@"Easter date not supported in %ld",(long)components.year);
             assert(NO);
         }
         
